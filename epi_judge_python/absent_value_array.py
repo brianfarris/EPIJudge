@@ -3,8 +3,24 @@ from test_framework.test_failure import TestFailure
 
 
 def find_missing_element(stream):
-    # TODO - you fill in here.
-    return 0
+    stream = list(stream)
+    print(len(stream))
+    print(19 in stream)
+    print(127 in stream)
+    missing = 0
+    for i in range(10):
+        num = [0, 0]
+        for x in stream:
+            # print("(x >> i) & 1: ", (x >> i) & 1)
+            if (x >> i) &  1:
+                num[1] += 1
+            else:
+                num[0] += 1
+        print("i: ", i, "num: ", num, "num[0] > num[1]: ", num[0] > num[1])
+        if num[0] > num[1]:
+            missing += 2**i
+
+    return missing
 
 
 def find_missing_element_wrapper(data):
