@@ -3,8 +3,19 @@ from test_framework import generic_test
 
 def find_nearest_repetition(paragraph):
     # TODO - you fill in here.
-    return 0
-
+    cache = {}
+    min_dist = float('inf')
+    i = 0
+    for word in paragraph:
+        if word in cache:
+            dist = i - cache[word]
+            min_dist = min(min_dist, dist)
+        cache[word] = i
+        i += 1
+    if min_dist == float('inf'):
+        return -1
+    else:
+        return min_dist
 
 if __name__ == '__main__':
     exit(
