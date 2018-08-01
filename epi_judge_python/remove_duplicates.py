@@ -13,11 +13,17 @@ class Name:
                 if self.first_name != other.first_name else
                 self.last_name < other.last_name)
 
+    def __eq__(self, other):
+        return self.first_name == other.first_name
 
 def eliminate_duplicate(A):
-    # TODO - you fill in here.
-    return
-
+    A.sort()
+    write_idx = 1
+    for cand in A[1:]:
+        if cand != A[write_idx - 1]:
+            A[write_idx] = cand
+            write_idx += 1
+    del A[write_idx:]
 
 @enable_executor_hook
 def eliminate_duplicate_wrapper(executor, names):

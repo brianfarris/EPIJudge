@@ -16,7 +16,7 @@ class Team:
     @staticmethod
     def valid_placement_exists(team0, team1):
         # TODO - you fill in here.
-        return True
+        return all(a < b for a, b in zip(sorted(team0._players), sorted(team1._players)))
 
 
 @enable_executor_hook
