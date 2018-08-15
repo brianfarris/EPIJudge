@@ -1,9 +1,19 @@
 from test_framework import generic_test, test_utils
+from collections import deque
 
 
 def find_k_largest_in_bst(tree, k):
     # TODO - you fill in here.
-    return None
+    output = []
+    def traverse(tree):
+        if tree:
+            traverse(tree.right)
+            if len(output) < k:
+                output.append(tree.data)
+                traverse(tree.left)
+
+    traverse(tree)
+    return output
 
 
 if __name__ == '__main__':
