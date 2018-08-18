@@ -9,7 +9,15 @@ NUM_PEGS = 3
 
 def compute_tower_hanoi(num_rings):
     # TODO - you fill in here.
-    return []
+    result = []
+    def rec(n_move, from_peg, to_peg, temp_peg):
+        if n_move > 0:
+            rec(n_move-1, from_peg, temp_peg, to_peg)
+            # move 1 from from_peg to to_peg
+            result.append((from_peg, to_peg))
+            rec(n_move-1, temp_peg, to_peg, from_peg)
+    rec(num_rings, 0, 1, 2)
+    return result
 
 
 @enable_executor_hook
