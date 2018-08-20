@@ -8,7 +8,30 @@ from test_framework.test_utils import enable_executor_hook
 def pair_includes_ancestor_and_descendant_of_m(possible_anc_or_desc_0,
                                                possible_anc_or_desc_1, middle):
     # TODO - you fill in here.
-    return True
+    def is_descendent(anc, dec):
+        while anc:
+            if anc == dec:
+                return True
+            elif anc.data < dec.data:
+                anc = anc.right
+            elif anc.data > dec.data:
+                anc = anc.left
+        return False
+
+    print("possible_anc_or_desc_0.data: ", possible_anc_or_desc_0.data)
+    print("possible_anc_or_desc_1.data: ", possible_anc_or_desc_1.data)
+    print("middle.data: ", middle.data)
+    if ((possible_anc_or_desc_0.data == possible_anc_or_desc_1.data) or
+            (possible_anc_or_desc_0.data == middle.data)
+            or (possible_anc_or_desc_1.data == middle.data)):
+        return False
+
+    return ((is_descendent(possible_anc_or_desc_0, middle)
+        and is_descendent(middle, possible_anc_or_desc_1))
+        or (is_descendent(possible_anc_or_desc_1, middle)
+        and is_descendent(middle, possible_anc_or_desc_0)))
+
+
 
 
 @enable_executor_hook
