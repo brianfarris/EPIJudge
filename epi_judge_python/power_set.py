@@ -3,7 +3,13 @@ from test_framework import generic_test, test_utils
 
 def generate_power_set(S):
     # TODO - you fill in here.
-    return []
+    if len(S) == 0:
+        return [S]
+    else:
+        output = generate_power_set(S[1:])
+        for subset in generate_power_set(S[1:]):
+            output.append([S[0]] + subset)
+        return output
 
 
 if __name__ == '__main__':
