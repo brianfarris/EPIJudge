@@ -1,4 +1,5 @@
 import functools
+from bst_node import BstNode
 
 from test_framework import generic_test
 from test_framework.binary_tree_utils import (binary_tree_height,
@@ -9,7 +10,13 @@ from test_framework.test_utils import enable_executor_hook
 
 def build_min_height_bst_from_sorted_array(A):
     # TODO - you fill in here.
-    return None
+    if len(A) == 0:
+        return None
+
+    n = len(A)
+    return BstNode(A[n//2],
+            build_min_height_bst_from_sorted_array(A[:n//2]),
+            build_min_height_bst_from_sorted_array(A[n//2 + 1:]))
 
 
 @enable_executor_hook
