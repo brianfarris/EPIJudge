@@ -3,7 +3,15 @@ from test_framework import generic_test, test_utils
 
 def generate_balanced_parentheses(num_pairs):
     # TODO - you fill in here.
-    return []
+    if num_pairs == 0:
+        return ['']
+    elif num_pairs == 1:
+        return ['()']
+    else:
+        return ['(' + x + ')' + y for i in range(num_pairs)
+                for x in generate_balanced_parentheses(i)
+                for y in generate_balanced_parentheses(num_pairs - 1 - i)
+                ] 
 
 
 if __name__ == '__main__':
