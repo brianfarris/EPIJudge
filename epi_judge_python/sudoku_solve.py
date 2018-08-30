@@ -1,3 +1,4 @@
+import itertools
 import copy
 import functools
 import math
@@ -9,7 +10,42 @@ from test_framework.test_utils import enable_executor_hook
 
 def solve_sudoku(partial_assignment):
     # TODO - you fill in here.
-    return True
+    def rec(i, j):
+        if i == len(partial_assignment):
+            i = 0
+            j += 1
+            if j == len(partial_assignment[i]):
+                return True
+
+        if partial_assignment[i][j] != 0:
+            return rec(i + 1, j)
+
+        def check_valid(i, j, val):
+
+            if any(val == partial_assignment[k][j]
+                   for k in range(len(partial_assignment))):
+                return False
+
+            if val in partial_assignment[i]:
+                return False
+
+            region_size = int(math.sqrt(len(partial_assignment)))
+            I = i // region_size
+            J = j // region_size
+
+            return not any(
+                val == partial_assignment[region_size * I + a][region_size * J + b]
+                for a, b in itertools.product(range(region_size), repeat=2))
+
+        for val in range(1, len(partial_assignment) + 1):
+            if check_valid(i, j, val):
+                partial_assignment[i][j] = val
+                if rec(i + 1, j):
+                    return True
+        partial_assignment[i][j] = 0
+        return False
+
+    return rec(0,0)
 
 
 def assert_unique_seq(seq):
@@ -53,6 +89,7 @@ def solve_sudoku_wrapper(executor, partial_assignment):
     block_size = int(math.sqrt(len(solved)))
 
     for i in range(len(solved)):
+        pass
         assert_unique_seq(solved[i])
         assert_unique_seq([row[i] for row in solved])
         assert_unique_seq(gather_square_block(solved, block_size, i))

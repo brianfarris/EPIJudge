@@ -1,4 +1,6 @@
 import functools
+from binary_tree_node import BinaryTreeNode
+
 
 from test_framework import generic_test
 from test_framework.test_utils import enable_executor_hook
@@ -6,7 +8,13 @@ from test_framework.test_utils import enable_executor_hook
 
 def generate_all_binary_trees(num_nodes):
     # TODO - you fill in here.
-    return []
+    if num_nodes == 0:
+        return [None]
+    output = []
+    for i in range(num_nodes):
+        output += [BinaryTreeNode(0, x, y) for x in generate_all_binary_trees(i) for y in generate_all_binary_trees(num_nodes - 1 - i)]
+
+    return output
 
 
 def serialize_structure(tree):
