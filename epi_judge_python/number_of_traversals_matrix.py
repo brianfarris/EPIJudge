@@ -1,9 +1,16 @@
 from test_framework import generic_test
 
 
+cache = {}
 def number_of_ways(n, m):
     # TODO - you fill in here.
-    return 0
+    if n == 1 or m == 1:
+        return 1
+    if (n, m) in cache:
+        return cache[(n, m)]
+
+    cache[(n, m)] = number_of_ways(n - 1, m) + number_of_ways(n, m - 1)
+    return cache[(n, m)]
 
 
 if __name__ == '__main__':

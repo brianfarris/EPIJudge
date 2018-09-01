@@ -1,10 +1,19 @@
 from test_framework import generic_test
 
 
+cache = {}
 def compute_binomial_coefficient(n, k):
     # TODO - you fill in here.
-    return 0
+    if k in (0, n):
+        return 1
 
+    if (n, k) in cache:
+        return cache[(n, k)]
+
+
+
+    cache[(n, k)] = compute_binomial_coefficient(n - 1, k - 1) + compute_binomial_coefficient(n - 1, k)
+    return cache[(n, k)]
 
 if __name__ == '__main__':
     exit(
