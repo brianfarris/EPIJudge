@@ -6,8 +6,26 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def decompose_into_dictionary_words(domain, dictionary):
-    # TODO - you fill in here.
-    return []
+    cache = {}
+    def rec(domain, dictionary):
+        # TODO - you fill in here.
+        if not domain:
+            return []
+
+        if domain not in cache:
+            for i in range(1, len(domain)+1):
+                if domain[:i] in dictionary:
+                    blah = rec(domain[i:], dictionary)
+                    if blah is not False:
+                        cache[domain] = [domain[:i]] + blah
+                        return cache[domain]
+            cache[domain] = False
+        return cache[domain]
+
+    rec(domain, dictionary)
+    return cache[domain]
+
+
 
 
 @enable_executor_hook
