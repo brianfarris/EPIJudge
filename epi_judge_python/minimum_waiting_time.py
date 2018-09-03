@@ -1,10 +1,11 @@
 from test_framework import generic_test
+from itertools import accumulate
 
 
 def minimum_total_waiting_time(service_times):
     # TODO - you fill in here.
-    return 0
-
+    service_times.sort()
+    return sum(accumulate([0] + service_times[:-1]))
 
 if __name__ == '__main__':
     exit(

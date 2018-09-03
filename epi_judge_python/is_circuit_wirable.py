@@ -2,6 +2,7 @@ import functools
 
 from test_framework import generic_test
 from test_framework.test_utils import enable_executor_hook
+from collections import deque
 
 
 class GraphVertex:
@@ -12,8 +13,20 @@ class GraphVertex:
 
 def is_any_placement_feasible(graph):
     # TODO - you fill in here.
-    return True
+    def bfs(v):
+        v.d = 0
+        q = deque([v])
+        while q:
+            this = q.pop()
+            for new_v in this.edges:
+                if new_v.d == -1:
+                    new_v.d = this.d + 1
+                    q.appendleft(new_v)
+                elif new_v.d == this.d:
+                        return  False
+        return True
 
+    return all([bfs(v) for v in graph if v.d == -1])
 
 @enable_executor_hook
 def is_any_placement_feasible_wrapper(executor, k, edges):

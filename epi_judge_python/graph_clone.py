@@ -9,10 +9,16 @@ class GraphVertex:
         self.label = label
         self.edges = []
 
-
+cache = {}
 def clone_graph(graph):
     # TODO - you fill in here.
-    return GraphVertex(0)
+    if graph in cache:
+        return cache[graph]
+    g = GraphVertex(graph.label)
+    cache[graph] = g
+    for v in graph.edges:
+        cache[graph].edges.append(clone_graph(v))
+    return g
 
 
 def copy_labels(edges):

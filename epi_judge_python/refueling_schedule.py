@@ -10,9 +10,17 @@ MPG = 20
 # gallons[i] is the amount of gas in city i, and distances[i] is the
 # distance city i to the next city.
 def find_ample_city(gallons, distances):
-    # TODO - you fill in here.
-    return 0
-
+    # TODO - you fill in here
+    tank = 0
+    min_tank = 0
+    min_tank_index = 0
+    for i in range(len(gallons)):
+        tank += gallons[i]
+        tank -= distances[i] / MPG
+        if tank <= min_tank:
+            min_tank = tank
+            min_tank_index = i
+    return min_tank_index + 1
 
 @enable_executor_hook
 def find_ample_city_wrapper(executor, gallons, distances):

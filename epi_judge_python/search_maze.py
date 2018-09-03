@@ -13,7 +13,34 @@ Coordinate = collections.namedtuple('Coordinate', ('x', 'y'))
 
 def search_maze(maze, s, e):
     # TODO - you fill in here.
-    return []
+    path = []
+    def is_reachable_dfs(curr):
+        if (curr.x < 0 or
+            curr.x > len(maze)-1 or
+            curr.y < 0 or
+            curr.y > len(maze[0])-1
+            or maze[curr.x][curr.y] == BLACK
+            ):
+            return False
+
+        path.append(curr)
+        maze[curr.x][curr.y] = BLACK
+
+        if curr == e:
+            return True
+
+        if any([is_reachable_dfs(Coordinate(curr.x + 1, curr.y + 0)),
+                is_reachable_dfs(Coordinate(curr.x - 1, curr.y + 0)),
+                is_reachable_dfs(Coordinate(curr.x + 0, curr.y + 1)),
+                is_reachable_dfs(Coordinate(curr.x + 0, curr.y - 1))]
+               ):
+            return True
+        del path[-1]
+        return False
+
+    if not is_reachable_dfs(s):
+        return []
+    return path
 
 
 def path_element_is_feasible(maze, prev, cur):

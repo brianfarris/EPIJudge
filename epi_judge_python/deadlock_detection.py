@@ -7,11 +7,21 @@ from test_framework.test_utils import enable_executor_hook
 class GraphVertex:
     def __init__(self):
         self.edges = []
-
+        self.color = 'white'
 
 def is_deadlocked(graph):
     # TODO - you fill in here.
-    return True
+    def rec(vert):
+        if vert.color == 'gray':
+            return True
+
+        vert.color = 'gray'
+        if any([v.color != 'black' and rec(v) for v in vert.edges]):
+            return True
+        vert.color = 'black'
+        return False
+
+    return any([vert.color == 'white' and rec(vert) for vert in graph])
 
 
 @enable_executor_hook
