@@ -7,6 +7,31 @@ from test_framework.test_utils import enable_executor_hook
 
 def has_cycle(head):
     # TODO - you fill in here.
+    fast = head
+    slow = head
+    while fast and fast.next and fast.next.next:
+        slow = slow.next
+        fast = fast.next.next
+        if slow is fast:
+            runner = slow
+            cycle_len = 0
+            while True:
+                cycle_len += 1
+                runner = runner.next
+                if runner is slow:
+                    break
+             
+            runner1 = head
+            runner2 = head
+            for _ in range(cycle_len):
+                runner1 = runner1.next
+
+            while runner1 is not runner2:
+                runner1 = runner1.next
+                runner2 = runner2.next
+
+            return runner1
+        
     return None
 
 
