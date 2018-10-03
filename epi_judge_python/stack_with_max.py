@@ -1,23 +1,30 @@
 from test_framework import generic_test
 from test_framework.test_failure import TestFailure
-
+import collections
 
 class Stack:
+    def __init__(self):
+        self.contents = []
+
     def empty(self):
         # TODO - you fill in here.
-        return True
+        return len(self.contents) == 0
 
     def max(self):
         # TODO - you fill in here.
-        return 0
+        if self.empty():
+            raise IndexError('empty stack')
+        return self.contents[-1][1]
 
     def pop(self):
         # TODO - you fill in here.
-        return 0
+        if self.empty():
+            raise IndexError('empty stack')
+        return self.contents.pop()[0]
 
     def push(self, x):
         # TODO - you fill in here.
-        return
+        self.contents.append((x, x if self.empty() else max(x, self.max())))
 
 
 def stack_tester(ops):
