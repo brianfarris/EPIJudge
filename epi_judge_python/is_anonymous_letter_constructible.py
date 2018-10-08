@@ -2,16 +2,17 @@ from test_framework import generic_test
 import collections
 
 def is_letter_constructible_from_magazine(letter_text, magazine_text):
-    # TODO - you fill in here.
-    letter_counts = collections.Counter(letter_text)
+    hash_table = collections.Counter(letter_text)
+
     for c in magazine_text:
-        if c in letter_counts:
-            letter_counts[c] -= 1
-            if letter_counts[c] == 0:
-                del letter_counts[c]
-                if not letter_counts:
+        if c in hash_table:
+            hash_table[c] -= 1
+            if hash_table[c] == 0:
+                del hash_table[c]
+                if not hash_table:
                     return True
-    return not letter_counts
+    
+    return not hash_table
 
 if __name__ == '__main__':
     exit(

@@ -1,19 +1,17 @@
 from test_framework import generic_test
 
-
 def search_first_of_k(A, k):
-    # TODO - you fill in here.
     left, right = 0, len(A) - 1
     result = -1
     while left <= right:
         mid = (left + right) // 2
-        if k > A[mid]:
-            left = mid + 1
-        elif k < A[mid]:
+        if A[mid] > k:
             right = mid - 1
-        else:
+        elif A[mid] == k:
             result = mid
             right = mid - 1
+        else:
+            left = mid + 1
 
     return result
 
