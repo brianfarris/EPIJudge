@@ -3,24 +3,23 @@ import heapq
 
 
 def merge_sorted_arrays(sorted_arrays):
-    # TODO - you fill in here.
-    sorted_arrays = [iter(x) for x in sorted_arrays]
     min_heap = []
-    output = []
-    for i, arr in enumerate(sorted_arrays):
+    sorted_arrays_iters = [iter(x) for x in sorted_arrays]
+
+    for i, arr in enumerate(sorted_arrays_iters):
         first_elem = next(arr, None)
         if first_elem is not None:
             heapq.heappush(min_heap, (first_elem, i))
 
+    result = []
     while min_heap:
         smallest, i = heapq.heappop(min_heap)
-        output.append(smallest)
-        arr_i = sorted_arrays[i]
-        next_elem = next(arr_i, None)
+        result.append(smallest)
+        next_elem = next(sorted_arrays_iters[i], None)
         if next_elem is not None:
             heapq.heappush(min_heap, (next_elem, i))
+    return result
 
-    return output
 if __name__ == '__main__':
     exit(
         generic_test.generic_test_main("sorted_arrays_merge.py",
