@@ -1,6 +1,9 @@
 import collections
 import functools
 import math
+import itertools
+import bisect
+import random
 
 from test_framework import generic_test
 from test_framework.random_sequence_checker import run_func_with_retries
@@ -9,7 +12,9 @@ from test_framework.test_utils import enable_executor_hook
 
 def nonuniform_random_number_generation(values, probabilities):
     # TODO - you fill in here.
-    return 0
+    p_accum = [0.] + list(itertools.accumulate(probabilities))
+    idx = bisect.bisect(p_accum, random.random()) - 1
+    return values[idx]
 
 
 @enable_executor_hook
