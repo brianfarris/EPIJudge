@@ -3,7 +3,10 @@ from test_framework import generic_test
 
 def ss_decode_col_id(col):
     # TODO - you fill in here.
-    return 0
+    output = 0
+    for i, c in enumerate(reversed(col)):
+        output += 26**i * (ord(c) - ord('A') + 1)
+    return output
 
 
 if __name__ == '__main__':
