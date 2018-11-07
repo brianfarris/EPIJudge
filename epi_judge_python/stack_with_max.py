@@ -7,23 +7,19 @@ class Stack:
         self.contents = []
 
     def empty(self):
-        # TODO - you fill in here.
         return len(self.contents) == 0
 
     def max(self):
-        # TODO - you fill in here.
         if self.empty():
             raise IndexError('empty stack')
         return self.contents[-1][1]
 
     def pop(self):
-        # TODO - you fill in here.
         if self.empty():
             raise IndexError('empty stack')
         return self.contents.pop()[0]
 
     def push(self, x):
-        # TODO - you fill in here.
         self.contents.append((x, x if self.empty() else max(x, self.max())))
 
 
