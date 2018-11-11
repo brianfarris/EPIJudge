@@ -3,7 +3,26 @@ from test_framework import generic_test
 
 def shortest_equivalent_path(path):
     # TODO - you fill in here.
-    return ''
+    if not path:
+        raise ValueError("invalid path")
+
+    stack = []
+    if path[0] == '/':
+        stack.append('/')
+
+    for token in (token for token in path.split("/") if token not in [".", ""]):
+        if token == "..":
+            if not stack or stack[-1] == "..":
+                stack.append(token)
+            else:
+                if stack[-1] == "/":
+                    raise ValueError("Path error")
+                stack.pop()
+        else:
+            stack.append(token)
+
+    result = "/".join(stack)
+    return result[result.startswith('//'):]
 
 
 if __name__ == '__main__':
