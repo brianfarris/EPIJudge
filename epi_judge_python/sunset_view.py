@@ -3,7 +3,12 @@ from test_framework import generic_test
 
 def examine_buildings_with_sunset(sequence):
     # TODO - you fill in here.
-    return []
+    stack = []
+    for i, height in enumerate(sequence):
+        while stack and height >= stack[-1][1]:
+            stack.pop()
+        stack.append((i, height))
+    return [x[0] for x in reversed(stack)]
 
 
 def examine_buildings_with_sunset_wrapper(sequence):
