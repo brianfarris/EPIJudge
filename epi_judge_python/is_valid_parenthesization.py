@@ -3,7 +3,14 @@ from test_framework import generic_test
 
 def is_well_formed(s):
     # TODO - you fill in here.
-    return True
+    partners = {'(': ')', '{': '}', '[': ']'}
+    stack = []
+    for c in s:
+        if c in partners:
+            stack.append(c)
+        elif not stack or partners[stack.pop()] != c:
+            return False
+    return not stack
 
 
 if __name__ == '__main__':
