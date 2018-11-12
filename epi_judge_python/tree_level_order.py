@@ -3,7 +3,6 @@ import collections
 
 
 def binary_tree_depth_order(tree):
-    # TODO - you fill in here.
     q = collections.deque([tree])
     result = []
     while q:
@@ -18,7 +17,6 @@ def binary_tree_depth_order(tree):
             result.append(this_level)
         q = q_next
     return result
-
 
 if __name__ == '__main__':
     exit(
