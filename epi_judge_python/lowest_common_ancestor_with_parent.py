@@ -8,7 +8,28 @@ from test_framework.test_utils import enable_executor_hook
 
 def lca(node0, node1):
     # TODO - you fill in here.
-    return None
+    def get_depth(node):
+        depth = 0
+        while node:
+            depth += 1
+            node = node.parent
+        return depth
+        
+    depth0 = get_depth(node0)
+    depth1 = get_depth(node1)
+    
+    if depth0 > depth1:
+        for _ in range(depth0 - depth1):
+            node0 = node0.parent
+    else:
+        for _ in range(depth1 - depth0):
+            node1 = node1.parent
+
+    while node0 is not node1:
+        node0 = node0.parent
+        node1 = node1.parent
+
+    return node0
 
 
 @enable_executor_hook
