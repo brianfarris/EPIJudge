@@ -2,6 +2,25 @@ from test_framework import generic_test
 import heapq
 
 def online_median(sequence):
+    min_heap = []
+    max_heap = []
+
+    output = []
+    count = 0
+    for x in sequence:
+        temp = heapq.heappushpop(min_heap, x)
+        heapq.heappush(max_heap, -temp)
+
+        if count % 2 == 0:
+            temp = heapq.heappop(max_heap)
+            heapq.heappush(min_heap, -temp)
+
+        output.append( 0.5 * (min_heap[0] - max_heap[0]) if (count % 2 == 1) else min_heap[0])
+        count += 1
+    return output
+
+"""
+def online_median(sequence):
     # TODO - you fill in here.
     min_heap = []
     max_heap = []
@@ -27,7 +46,7 @@ def online_median(sequence):
             output.append(0.5 * (min_heap[0] - max_heap[0]))
 
     return output
-
+"""
 
 def online_median_wrapper(sequence):
     return online_median(iter(sequence))

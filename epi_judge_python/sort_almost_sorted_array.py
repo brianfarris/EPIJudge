@@ -4,24 +4,20 @@ import itertools
 
 
 def sort_approximately_sorted_array(sequence, k):
-    # TODO - you fill in here.
-    sequence = iter(sequence)
-    min_heap = []
+    sequence = list(sequence)
+    window = []
+    for i in range(k):
+        heapq.heappush(window, sequence[i])
+   
     output = []
-    for _ in range(k):
-        next_num = next(sequence, None)
-        if next_num is not None:
-            heapq.heappush(min_heap, next_num)
-
-    for next_num in sequence:
-        smallest = heapq.heappushpop(min_heap, next_num)
-        output.append(smallest)
-
-    while min_heap:
-        output.append(heapq.heappop(min_heap))
+    for i in range(k, len(sequence)):
+        small = heapq.heappushpop(window, sequence[i])
+        output.append(small)
+    
+    while window:
+        output.append(heapq.heappop(window))
 
     return output
-
 
 def sort_approximately_sorted_array_wrapper(sequence, k):
     return sort_approximately_sorted_array(iter(sequence), k)

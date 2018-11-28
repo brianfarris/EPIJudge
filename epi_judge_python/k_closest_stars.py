@@ -28,14 +28,13 @@ class Star:
 
 
 def find_closest_k_stars(stars, k):
-    # TODO - you fill in here.
     max_heap = []
     for _ in range(k):
         star = next(stars, None)
         if star is not None:
-           heapq.heappush(max_heap, (-star.distance, star))
+            heapq.heappush(max_heap, (-star.distance, star))
     for star in stars:
-        heapq.heappushpop(max_heap, (-star.distance,  star))
+        heapq.heappushpop(max_heap, (-star.distance, star))
     return [entry[1] for entry in max_heap]
 
 
