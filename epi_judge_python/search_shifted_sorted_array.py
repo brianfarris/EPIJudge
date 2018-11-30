@@ -2,17 +2,15 @@ from test_framework import generic_test
 
 
 def search_smallest(A):
-    # TODO - you fill in here.
-    left, right = 0, len(A) - 1
-    while right > left:
-        #print(left, right)
-        mid = (left + right) // 2
-        if A[mid] > A[right]:
-            left = mid + 1
+    l = 0
+    r = len(A) - 1
+    while r > l:
+        mid = (l + r) // 2
+        if A[mid] > A[r]:
+            l = mid + 1
         else:
-            right = mid
-
-    return right
+            r = mid
+    return l
 
 if __name__ == '__main__':
     exit(

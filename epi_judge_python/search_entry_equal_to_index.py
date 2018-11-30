@@ -6,18 +6,20 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def search_entry_equal_to_its_index(A):
-    # TODO - you fill in here.
-    left, right = 0, len(A) - 1
-    while right >= left:
-        mid = (left + right) // 2
-        if A[mid] == mid:
-            return mid
-        elif A[mid] > mid:
-            right = mid - 1
-        else:
-            left = mid + 1
+    l = 0
+    r = len(A) - 1
+    while l <= r:
+        mid = (l + r) // 2
+        diff = A[mid] - mid
 
+        if diff < 0:
+            l = mid + 1
+        elif diff > 0:
+            r = mid - 1
+        else:
+            return mid
     return -1
+
 
 
 @enable_executor_hook
