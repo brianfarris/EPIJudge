@@ -3,6 +3,23 @@ import math
 
 
 def square_root(x):
+    if x >=1.0:
+        left = 1.
+        right = x
+    else:
+        left = x
+        right = 1.0
+
+    while abs(right - left)/abs(right + left) > 1.e-12:
+            mid = (left + right) / 2.
+            if mid * mid > x:
+                right = mid
+            else:
+                left = mid
+    return left
+
+"""
+def square_root(x):
     # TODO - you fill in here.
     left, right = (x, 1.0) if x < 1.0 else (1.0, x)
     while not math.isclose(left, right):
@@ -13,7 +30,7 @@ def square_root(x):
         else:
             left = mid
     return left
-
+"""
 
 if __name__ == '__main__':
     exit(
