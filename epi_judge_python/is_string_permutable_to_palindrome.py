@@ -4,8 +4,7 @@ import collections
 def can_form_palindrome(s):
     # TODO - you fill in here.
     counts = collections.Counter(s)
-    return sum( v % 2 for v in counts.values()) <=1
-
+    return sum(v % 2 for v in counts.values()) <= 1
 
 if __name__ == '__main__':
     exit(

@@ -2,26 +2,25 @@ from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 
 
-def find_missing_element(stream):
-    stream = list(stream)
-    print(len(stream))
-    print(19 in stream)
-    print(127 in stream)
-    missing = 0
-    for i in range(10):
-        num = [0, 0]
-        for x in stream:
-            # print("(x >> i) & 1: ", (x >> i) & 1)
-            if (x >> i) &  1:
-                num[1] += 1
-            else:
-                num[0] += 1
-        print("i: ", i, "num: ", num, "num[0] > num[1]: ", num[0] > num[1])
-        if num[0] > num[1]:
-            missing += 2**i
+def find_missing_element(ifs):
+    counter = [0] * 2**16
+    for x in map(int, ifs):
+        upper_part_x = x >> 16
+        counter[upper_part_x] += 1
+    candidate_bucket = next(i for i, c in enumerate(counter) if c < 2**16)
 
-    return missing
+    ifs.seek(0)
+    bit_vec = [0] * 2**16
 
+    for x in map(int, ifs):
+        upper_part_x = x >> 16
+        if candidate_bucket == upper_part_x:
+            lower_part_x = ((1 << 16) - 1) & x
+            bit_vec[lower_part_x] = 1
+
+    for i, v in enumerate(bit_vec):
+        if v == 0:
+            return (candidate_bucket << 16) | i
 
 def find_missing_element_wrapper(data):
     try:
