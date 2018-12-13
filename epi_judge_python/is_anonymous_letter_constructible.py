@@ -11,7 +11,6 @@ def is_letter_constructible_from_magazine(letter_text, magazine_text):
                 del hash_table[c]
                 if not hash_table:
                     return True
-    
     return not hash_table
 
 if __name__ == '__main__':
