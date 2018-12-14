@@ -4,20 +4,18 @@ import collections
 
 class LruCache:
     def __init__(self, capacity):
-        # TODO - you fill in here.
         self._isbn_price_table = collections.OrderedDict()
         self._capacity = capacity
 
     def lookup(self, isbn):
-        # TODO - you fill in here.
         if isbn not in self._isbn_price_table:
             return -1
+
         price = self._isbn_price_table.pop(isbn)
         self._isbn_price_table[isbn] = price
         return price
 
     def insert(self, isbn, price):
-        # TODO - you fill in here.
         if isbn in self._isbn_price_table:
             price = self._isbn_price_table.pop(isbn)
         elif self._capacity <= len(self._isbn_price_table):
@@ -25,7 +23,6 @@ class LruCache:
         self._isbn_price_table[isbn] = price
 
     def erase(self, isbn):
-        # TODO - you fill in here.
         return self._isbn_price_table.pop(isbn, None) is not None
 
 
