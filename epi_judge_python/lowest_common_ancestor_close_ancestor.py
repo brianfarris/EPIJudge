@@ -7,23 +7,18 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def lca(node0, node1):
-    visited = set()
+    visited = {}
     while node0 or node1:
         if node0:
             if node0 in visited:
                 return node0
-            visited.add(node0)
+            visited[node0] = 1
             node0 = node0.parent
         if node1:
             if node1 in visited:
                 return node1
-            visited.add(node1)
+            visited[node1] = 1
             node1 = node1.parent
-    raise ValueError("node_0 and node_1 are not in the same tree")
-
-    # TODO - you fill in here.
-    return None
-
 
 @enable_executor_hook
 def lca_wrapper(executor, tree, node0, node1):
