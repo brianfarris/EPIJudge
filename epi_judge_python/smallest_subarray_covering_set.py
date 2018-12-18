@@ -9,6 +9,35 @@ Subarray = collections.namedtuple('Subarray', ('start', 'end'))
 
 
 def find_smallest_subarray_covering_set(paragraph, keywords):
+    hash_table = {}
+    for k in keywords:
+        if k not in hash_table:
+            hash_table[k] = 1
+        else:
+            hash_table[k] += 1
+
+    result = (-1, -1)
+    n_remaining = len(keywords)
+    left = 0
+    for right, p in enumerate(paragraph):
+        if p in keywords:
+            hash_table[p] -= 1
+            if hash_table[p] >= 0:
+                n_remaining -= 1
+        while n_remaining == 0:
+            if result == (-1, -1) or right - left < result[1] - result[0]:
+                result = (left, right)
+
+            pl = paragraph[left]
+            if pl in keywords:
+                hash_table[pl] += 1
+                if hash_table[pl] > 0:
+                    n_remaining += 1
+            left += 1
+    return result
+
+"""
+def find_smallest_subarray_covering_set(paragraph, keywords):
     keywords_to_cover = collections.Counter(keywords)
     result = (-1, -1)
     remaining_to_cover = len(keywords)
@@ -30,7 +59,7 @@ def find_smallest_subarray_covering_set(paragraph, keywords):
             left += 1
     return result
 
-
+"""
 
 @enable_executor_hook
 def find_smallest_subarray_covering_set_wrapper(executor, paragraph, keywords):
