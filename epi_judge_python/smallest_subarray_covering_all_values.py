@@ -8,6 +8,33 @@ Subarray = collections.namedtuple('Subarray', ('start', 'end'))
 
 
 def find_smallest_sequentially_covering_subset(paragraph, keywords):
+    n_kw = len(keywords)
+    kw_idx = {k: i for i, k in enumerate(keywords)}
+    latest = [-1] * n_kw
+    shortest_subarray_length = [float('inf')] * n_kw
+
+    shortest_dist = float('inf')
+    result = Subarray(-1, -1)
+
+    for i, word in enumerate(paragraph):
+        if word in kw_idx:
+            word_idx = kw_idx[word]
+            if word_idx == 0:
+                shortest_subarray_length[word_idx] = 1
+            elif shortest_subarray_length[word_idx - 1] != float('inf'):
+                shortest_subarray_length[word_idx] = (
+                        i - latest[word_idx - 1] +
+                        shortest_subarray_length[word_idx - 1])
+            latest[word_idx] = i
+
+            if (word_idx == n_kw - 1 and shortest_subarray_length[-1] < shortest_dist):
+                shortest_dist = shortest_subarray_length[-1]
+                result = Subarray(i - shortest_dist + 1, i)
+    return result
+
+
+"""
+def find_smallest_sequentially_covering_subset(paragraph, keywords):
     # TODO - you fill in here.
     keyword_to_idx = {k:i for i, k in enumerate(keywords)}
     latest_occurence = [-1] * len(keywords)
@@ -30,7 +57,7 @@ def find_smallest_sequentially_covering_subset(paragraph, keywords):
                 shortest_distance = shortest_subarray_length[-1]
                 result = Subarray(i - shortest_distance + 1, i)
     return result
-
+"""
 
 @enable_executor_hook
 def find_smallest_sequentially_covering_subset_wrapper(executor, paragraph,
