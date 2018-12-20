@@ -3,6 +3,24 @@ import collections
 
 
 def find_all_substrings(s, words):
+    num_words = len(words)
+    word_size = len(words[0])
+
+    word_counts = collections.Counter(words)
+
+    def func(start):
+        string_word_counts = collections.Counter()
+        for i in range(start, start + num_words * word_size, word_size):
+            word_string = s[i: i + word_size]
+            string_word_counts[word_string] += 1
+            if string_word_counts[word_string] > word_counts[word_string]:
+                return False
+        return True
+
+    return [i for i in range(len(s) - num_words * word_size + 1) if func(i)]
+
+"""
+def find_all_substrings(s, words):
     # TODO - you fill in here.
     num_words = len(words)
     word_size = len(words[0])
@@ -24,6 +42,7 @@ def find_all_substrings(s, words):
     return [i for i in range(len(s) - num_words * word_size + 1)
         if func(s[i: i + num_words * word_size], words)
         ]
+        """
 
 
 if __name__ == '__main__':

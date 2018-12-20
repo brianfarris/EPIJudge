@@ -2,6 +2,26 @@ from test_framework import generic_test
 
 
 def test_collatz_conjecture(n):
+    visited = set()
+    for i in range(3, n + 1):
+
+        test_i = i
+        while test_i >= i:
+            if test_i in visited:
+                return False
+            visited.add(test_i)
+
+            if test_i % 2: # odd case
+                if test_i in visited:
+                    break
+                visited.add(test_i)
+                test_i = 3 * test_i + 1
+            else:
+                test_i //= 2
+    return True
+
+"""
+def test_collatz_conjecture(n):
     # TODO - you fill in here.
     verified = set()
     for i in range(3, n + 1):
@@ -20,7 +40,7 @@ def test_collatz_conjecture(n):
             else:
                 test_i //= 2
     return True
-
+"""
 
 if __name__ == '__main__':
     exit(
