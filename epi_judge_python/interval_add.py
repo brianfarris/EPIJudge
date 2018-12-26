@@ -9,20 +9,20 @@ Interval = collections.namedtuple('Interval', ('left', 'right'))
 
 
 def add_interval(disjoint_intervals, new_interval):
-    left_result = []
-    right_result = []
-    for interval in disjoint_intervals:
-        if interval.right < new_interval.left:
-            left_result.append(interval)
-        elif interval.left <= new_interval.right:
-            new_interval = Interval(
-                    min(interval.left, new_interval.left),
-                    max(interval.right, new_interval.right)
-                    )
-        else:
-            right_result.append(interval)
+    i = 0
+    result = []
+    while ((i < len(disjoint_intervals)) and
+            (new_interval.left > disjoint_intervals[i].right)):
+        result.append(disjoint_intervals[i])
+        i += 1
 
-    return left_result + [new_interval] + right_result
+    while ((i < len(disjoint_intervals)) and
+            new_interval.right >= disjoint_intervals[i].left):
+        new_interval = Interval(min(new_interval.left, disjoint_intervals[i].left),
+                max(new_interval.right, disjoint_intervals[i].right))
+        i += 1
+
+    return result + [new_interval] + disjoint_intervals[i:]
 
 
 @enable_executor_hook
