@@ -3,7 +3,6 @@ import collections
 
 
 def is_binary_tree_bst(tree):
-    
     q = collections.deque([[tree, float('-inf'), float('inf')]])
 
     while q:

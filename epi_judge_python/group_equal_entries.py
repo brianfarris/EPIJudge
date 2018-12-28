@@ -1,5 +1,6 @@
 import collections
 import functools
+import itertools
 
 from test_framework import generic_test
 from test_framework.test_failure import TestFailure
@@ -8,6 +9,27 @@ from test_framework.test_utils import enable_executor_hook
 Person = collections.namedtuple('Person', ('age', 'name'))
 
 
+def group_by_age(people):
+    ages = [person.age for person in people]
+    age_to_count = collections.Counter(ages)
+    offsets = [0] + list(itertools.accumulate(age_to_count.values()))[:-1]
+    age_to_offset = {age: offset for age, offset in zip(age_to_count.keys(), offsets)}
+
+    while age_to_offset:
+        old_age = next(iter(age_to_offset))
+        old_offset = age_to_offset[old_age]
+        new_age = people[old_offset].age
+        new_offset = age_to_offset[new_age]
+        people[old_offset], people[new_offset] = people[new_offset], people[old_offset]
+
+        age_to_count[new_age] -= 1
+        if age_to_count[new_age]:
+            age_to_offset[new_age] = new_offset + 1
+        else:
+            del age_to_offset[new_age]
+
+
+"""
 def group_by_age(people):
     age_to_count = collections.Counter([person.age for person in people])
     age_to_offset = {}
@@ -28,7 +50,7 @@ def group_by_age(people):
         else:
             del age_to_offset[to_age]
     return people
-
+"""
 
 @enable_executor_hook
 def group_by_age_wrapper(executor, people):
