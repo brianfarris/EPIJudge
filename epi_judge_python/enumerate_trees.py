@@ -7,14 +7,13 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def generate_all_binary_trees(num_nodes):
-    # TODO - you fill in here.
     if num_nodes == 0:
         return [None]
-    output = []
-    for i in range(num_nodes):
-        output += [BinaryTreeNode(0, x, y) for x in generate_all_binary_trees(i) for y in generate_all_binary_trees(num_nodes - 1 - i)]
 
-    return output
+    return [BinaryTreeNode(0, x, y)
+            for i in range(num_nodes)
+            for x in generate_all_binary_trees(i)
+            for y in generate_all_binary_trees(num_nodes - i - 1)]
 
 
 def serialize_structure(tree):
