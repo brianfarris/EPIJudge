@@ -2,7 +2,16 @@ from test_framework import generic_test, test_utils
 
 
 def generate_power_set(S):
-    
+    if not S:
+        return [[]]
+    else:
+        power_subset = generate_power_set(S[1:])
+        return power_subset + [[S[0]] + x for x in power_subset]
+
+
+"""
+def generate_power_set(S):
+
     power_set = []
     def directed_power_set(n, x):
         if n == len(S):
@@ -11,10 +20,10 @@ def generate_power_set(S):
 
         directed_power_set(n + 1, x)
         directed_power_set(n + 1, x + [S[n]])
-    
+
     directed_power_set(0, [])
     return power_set
-        
+"""
 """
 def generate_power_set(S):
     # TODO - you fill in here.
