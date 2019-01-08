@@ -2,6 +2,22 @@ from test_framework import generic_test, test_utils
 
 
 def generate_balanced_parentheses(num_pairs):
+    def rec(nl, nr, pref, result=[]):
+        if nl > 0:
+            rec(nl - 1, nr, pref + '(')
+        if nl < nr:
+            rec(nl, nr - 1, pref + ')')
+
+        if not nr:
+            result.append(pref)
+
+        return result
+
+    return rec(num_pairs, num_pairs, '')
+
+
+"""
+def generate_balanced_parentheses(num_pairs):
     # TODO - you fill in here.
     if num_pairs == 0:
         return ['']
@@ -11,8 +27,8 @@ def generate_balanced_parentheses(num_pairs):
         return ['(' + x + ')' + y for i in range(num_pairs)
                 for x in generate_balanced_parentheses(i)
                 for y in generate_balanced_parentheses(num_pairs - 1 - i)
-                ] 
-
+                ]
+"""
 
 if __name__ == '__main__':
     exit(
