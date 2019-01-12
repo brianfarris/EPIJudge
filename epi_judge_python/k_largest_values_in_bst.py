@@ -3,16 +3,15 @@ from collections import deque
 
 
 def find_k_largest_in_bst(tree, k):
-    # TODO - you fill in here.
     output = []
-    def traverse(tree):
-        if tree:
-            traverse(tree.right)
+    def rec(tree):
+        if tree and len(output) < k:
+            rec(tree.right)
             if len(output) < k:
                 output.append(tree.data)
-                traverse(tree.left)
+                rec(tree.left)
 
-    traverse(tree)
+    rec(tree)
     return output
 
 

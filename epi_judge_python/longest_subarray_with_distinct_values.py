@@ -3,6 +3,19 @@ import collections
 
 
 def longest_subarray_with_distinct_entries(A):
+    most_recent = {}
+    longest_start = 0
+    result = 0
+    for i, a in enumerate(A):
+        if a in most_recent:
+            if most_recent[a] >= longest_start:
+                result = max(result, i - longest_start)
+                longest_start = most_recent[a] + 1
+        most_recent[a] = i
+    return max(result, len(A) - longest_start)
+
+"""
+def longest_subarray_with_distinct_entries(A):
     # TODO - you fill in here.
     if A == []:
         return 0
@@ -27,6 +40,7 @@ def longest_subarray_with_distinct_entries(A):
                 cache[A[start]] -= 1
             start += 1
     return best_length
+"""
 
 if __name__ == '__main__':
     exit(

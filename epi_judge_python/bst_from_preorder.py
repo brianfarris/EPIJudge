@@ -3,17 +3,18 @@ from bst_node import BstNode
 
 
 def rebuild_bst_from_preorder(preorder_sequence):
-    # TODO - you fill in here.
     if not preorder_sequence:
         return None
 
-    transition = next((i for i, a in enumerate(preorder_sequence)
-                        if a > preorder_sequence[0]),
-                        len(preorder_sequence))
+    left = [a for i, a in enumerate(preorder_sequence)
+            if a < preorder_sequence[0]]
+    right = [a for i, a in enumerate(preorder_sequence)
+             if a > preorder_sequence[0]]
 
     return BstNode(preorder_sequence[0],
-            rebuild_bst_from_preorder(preorder_sequence[1:transition]),
-            rebuild_bst_from_preorder(preorder_sequence[transition:]))
+            rebuild_bst_from_preorder(left),
+                   rebuild_bst_from_preorder(right))
+
 
 if __name__ == '__main__':
     exit(
