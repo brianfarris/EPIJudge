@@ -1,15 +1,14 @@
 from test_framework import generic_test
 
-
 cache = {}
 def fibonacci(n):
-    # TODO - you fill in here.
     if n == 0:
         return 0
-    if n == 1:
+    elif n == 1:
         return 1
     elif n not in cache:
-        cache[n] = fibonacci(n - 2) + fibonacci(n - 1)
+        cache[n] = fibonacci(n - 1) + fibonacci(n - 2)
+
     return cache[n]
 
 
