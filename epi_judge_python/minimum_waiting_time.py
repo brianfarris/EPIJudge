@@ -3,9 +3,16 @@ from itertools import accumulate
 
 
 def minimum_total_waiting_time(service_times):
+    service_times.sort()
+    return sum(accumulate([0] + service_times[:-1]))
+
+"""
+def minimum_total_waiting_time(service_times):
     # TODO - you fill in here.
     service_times.sort()
     return sum(accumulate([0] + service_times[:-1]))
+"""
+
 
 if __name__ == '__main__':
     exit(
