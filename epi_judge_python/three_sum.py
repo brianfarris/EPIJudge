@@ -3,7 +3,6 @@ import copy
 from two_sum import has_two_sum
 
 def has_three_sum(A, t):
-    # TODO - you fill in here.
     A.sort()
     return any(has_two_sum(A, t - a) for a in A)
 

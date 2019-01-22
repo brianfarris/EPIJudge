@@ -12,6 +12,46 @@ Coordinate = collections.namedtuple('Coordinate', ('x', 'y'))
 
 
 def search_maze(maze, s, e):
+    Nx = len(maze)
+    Ny = len(maze[0])
+
+    q = collections.deque()
+    q.append([s])
+    while q:
+        path = q.popleft()
+        curr = path[-1]
+        if (curr.x < 0 or
+            curr.x > len(maze)-1 or
+            curr.y < 0 or
+            curr.y > len(maze[0])-1
+            or maze[curr.x][curr.y] == BLACK
+            ):
+            pass 
+        elif curr == e:
+            return path
+        else:
+            maze[curr.x][curr.y] = BLACK
+            rightpath = list(path)
+            rightpath.append(Coordinate(curr.x + 1, curr.y))
+            q.append(rightpath)
+
+            leftpath = list(path)
+            leftpath.append(Coordinate(curr.x - 1, curr.y))
+            q.append(leftpath)
+
+            uppath = list(path)
+            uppath.append(Coordinate(curr.x, curr.y + 1))
+            q.append(uppath)
+
+            downpath = list(path)
+            downpath.append(Coordinate(curr.x, curr.y - 1))
+            q.append(downpath)
+
+    return []
+
+
+"""
+def search_maze(maze, s, e):
     # TODO - you fill in here.
     path = []
     def is_reachable_dfs(curr):
@@ -41,7 +81,7 @@ def search_maze(maze, s, e):
     if not is_reachable_dfs(s):
         return []
     return path
-
+"""
 
 def path_element_is_feasible(maze, prev, cur):
     if not ((0 <= cur.x < len(maze)) and

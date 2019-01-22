@@ -1,16 +1,19 @@
 from test_framework import generic_test
 
+
 def has_two_sum(A, t):
-    i, j = 0, len(A) - 1
+    i = 0
+    j = len(A) - 1
     while j >= i:
-        end_sum = A[i] + A[j]
-        if end_sum == t:
+        endpoints_sum = A[i] + A[j]
+        if endpoints_sum == t:
             return True
-        elif end_sum > t:
+        elif endpoints_sum > t:
             j -= 1
-        elif end_sum < t:
+        else:
             i += 1
     return False
+
 
 if __name__ == '__main__':
     exit(
