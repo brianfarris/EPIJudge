@@ -12,8 +12,32 @@ class GraphVertex:
 
 
 def find_largest_number_teams(graph):
+    sorted_list = []
+
+    def dfs(parent):
+        parent.max_distance = 1
+        for child in parent.edges:
+            if not child.max_distance:
+                dfs(child)
+        sorted_list.append(parent)
+
+    for v in graph:
+        if not v.max_distance:
+            dfs(v)
+
+    max_distance = 0
+    while sorted_list:
+        u = sorted_list.pop()
+        max_distance = max(max_distance, u.max_distance)
+        for v in u.edges:
+            v.max_distance = max(v.max_distance, u.max_distance + 1)
+    return max_distance
+
+"""
+def find_largest_number_teams(graph):
     # TODO - you fill in here.
     sorted_list = []
+
     def dfs(parent):
         parent.max_distance = 1
         for child in parent.edges:
@@ -32,6 +56,7 @@ def find_largest_number_teams(graph):
         for v in u.edges:
             v.max_distance = max(v.max_distance, u.max_distance + 1)
     return max_distance
+"""
 
 
 @enable_executor_hook

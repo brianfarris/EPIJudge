@@ -12,6 +12,24 @@ class GraphVertex:
 
 
 def is_any_placement_feasible(graph):
+    def bfs(v):
+        v.d = 0
+        q = deque()
+        q.append(v)
+        while q:
+            curr = q.popleft()
+            for t in curr.edges:
+                if t.d == -1:
+                    t.d = curr.d + 1
+                    q.append(t)
+                elif t.d == curr.d:
+                    return False
+        return True
+    return all(bfs(v) for v in graph if v.d == -1)
+
+
+"""
+def is_any_placement_feasible(graph):
     # TODO - you fill in here.
     def bfs(v):
         v.d = 0
@@ -27,6 +45,8 @@ def is_any_placement_feasible(graph):
         return True
 
     return all([bfs(v) for v in graph if v.d == -1])
+"""
+
 
 @enable_executor_hook
 def is_any_placement_feasible_wrapper(executor, k, edges):

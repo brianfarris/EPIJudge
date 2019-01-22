@@ -9,6 +9,21 @@ class GraphVertex:
         self.label = label
         self.edges = []
 
+
+def clone_graph(graph):
+    vertex_map = {graph: GraphVertex(graph.label)}
+    q = collections.deque()
+    q.append(graph)
+    while q:
+        curr = q.popleft()
+        for v in curr.edges:
+            if v not in vertex_map:
+                vertex_map[v] = GraphVertex(v.label)
+                q.append(v)
+            vertex_map[curr].edges.append(vertex_map[v])
+    return vertex_map[graph]
+
+"""
 cache = {}
 def clone_graph(graph):
     # TODO - you fill in here.
@@ -19,6 +34,7 @@ def clone_graph(graph):
     for v in graph.edges:
         cache[graph].edges.append(clone_graph(v))
     return g
+"""
 
 
 def copy_labels(edges):

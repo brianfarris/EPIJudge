@@ -10,7 +10,6 @@ class GraphVertex:
         self.color = 'white'
 
 def is_deadlocked(graph):
-    # TODO - you fill in here.
     def rec(vert):
         if vert.color == 'gray':
             return True
@@ -23,6 +22,21 @@ def is_deadlocked(graph):
 
     return any([vert.color == 'white' and rec(vert) for vert in graph])
 
+"""
+def is_deadlocked(graph):
+    # TODO - you fill in here.
+    def rec(vert):
+        if vert.color == 'gray':
+            return True
+
+        vert.color = 'gray'
+        if any([v.color != 'black' and rec(v) for v in vert.edges]):
+            return True
+        vert.color = 'black'
+        return False
+
+    return any([vert.color == 'white' and rec(vert) for vert in graph])
+"""
 
 @enable_executor_hook
 def is_deadlocked_wrapper(executor, num_nodes, edges):
