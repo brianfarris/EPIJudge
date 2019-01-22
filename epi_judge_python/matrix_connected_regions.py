@@ -1,6 +1,26 @@
 from test_framework import generic_test
+from collections import deque
 
 
+def flip_color(x, y, image):
+    color = image[x][y]
+    q = deque()
+    q.append((x, y))
+    image[x][y] = 1 - image[x][y]
+    while q:
+        curr = q.popleft()
+        for coord in ((curr[0] + 1, curr[1]),
+                      (curr[0] - 1, curr[1]),
+                      (curr[0], curr[1] + 1),
+                      (curr[0], curr[1] - 1)):
+            if (0 <= coord[0] < len(image) and
+                    0 <= coord[1] < len(image[0]) and
+                    image[coord[0]][coord[1]] == color):
+                image[coord[0]][coord[1]] = 1 - image[coord[0]][coord[1]]
+                q.append(coord)
+
+
+"""
 def flip_color(x, y, image):
     # TODO - you fill in here.
     def rec(i, j, color):
@@ -19,7 +39,7 @@ def flip_color(x, y, image):
 
     rec(x, y, 1 - image[x][y])
     return image
-
+"""
 
 def flip_color_wrapper(x, y, image):
     flip_color(x, y, image)
