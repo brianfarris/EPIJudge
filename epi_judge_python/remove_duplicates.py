@@ -18,12 +18,12 @@ class Name:
 
 def eliminate_duplicate(A):
     A.sort()
-    write_idx = 1
+    idx = 1
     for cand in A[1:]:
-        if cand != A[write_idx - 1]:
-            A[write_idx] = cand
-            write_idx += 1
-    del A[write_idx:]
+        if cand != A[idx - 1]:
+            A[idx] = cand
+            idx += 1
+    del A[idx:]
 
 @enable_executor_hook
 def eliminate_duplicate_wrapper(executor, names):

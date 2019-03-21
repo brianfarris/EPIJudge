@@ -8,6 +8,22 @@ Item = collections.namedtuple('Item', ('weight', 'value'))
 
 
 def optimum_subject_to_capacity(items, capacity):
+    cache = {}
+    def rec(i, cap):
+        if i < 0:
+            return 0
+
+        if (i, cap) not in cache:
+            without_i = rec(i - 1, cap)
+            with_i = (0 if items[i].weight > cap else
+                      rec(i - 1, cap - items[i].weight) +
+                      items[i].value)
+            cache[(i, cap)] = max(without_i, with_i)
+        return cache[(i, cap)]
+    return rec(len(items) - 1, capacity)
+
+"""
+def optimum_subject_to_capacity(items, capacity):
     # TODO - you fill in here.
     cache = {}
     def rec(i, cap):
@@ -26,7 +42,7 @@ def optimum_subject_to_capacity(items, capacity):
 
 
     return rec(len(items)-1, capacity)
-
+"""
 
 @enable_executor_hook
 def optimum_subject_to_capacity_wrapper(executor, items, capacity):

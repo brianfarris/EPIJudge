@@ -4,6 +4,23 @@ import copy
 
 
 def num_combinations_for_final_score(final_score, individual_play_scores):
+    cache = {}
+    def rec(final_score, j):
+        if (final_score, j) not in cache:
+            if final_score == 0:
+                cache[(final_score, j)] = 1
+            elif j == len(individual_play_scores):
+                cache[(final_score, j)] = 0
+            else:
+                count = 0
+                for n_times in range(final_score // individual_play_scores[j] + 1):
+                    count += rec(final_score - n_times * individual_play_scores[j], j + 1)
+                cache[(final_score, j)] = count
+        return cache[(final_score, j)]
+
+    return rec(final_score, 0)
+
+def num_combinations_for_final_score(final_score, individual_play_scores):
     n_scores = len(individual_play_scores)
 
     storage = {}
