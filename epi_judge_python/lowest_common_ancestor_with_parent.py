@@ -7,6 +7,33 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def lca(node0, node1):
+    def get_height(node):
+        h = 0
+        runner = node
+        while runner:
+            runner = runner.parent
+            h += 1
+        return h
+
+    h0 = get_height(node0)
+    h1 = get_height(node1)
+
+    if h1 > h0:
+        for _ in range(h1-h0):
+            node1 = node1.parent
+    if h1 < h0:
+        for _ in range(h0-h1):
+            node0 = node0.parent
+
+    while node0 != node1:
+        node0 = node0.parent
+        node1 = node1.parent
+
+    return node0
+
+
+"""
+def lca(node0, node1):
     # TODO - you fill in here.
     def get_depth(node):
         depth = 0
@@ -14,10 +41,10 @@ def lca(node0, node1):
             depth += 1
             node = node.parent
         return depth
-        
+
     depth0 = get_depth(node0)
     depth1 = get_depth(node1)
-    
+
     if depth0 > depth1:
         for _ in range(depth0 - depth1):
             node0 = node0.parent
@@ -30,7 +57,7 @@ def lca(node0, node1):
         node1 = node1.parent
 
     return node0
-
+"""
 
 @enable_executor_hook
 def lca_wrapper(executor, tree, node0, node1):

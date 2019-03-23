@@ -3,12 +3,20 @@ from test_framework import generic_test
 
 
 def find_maximum_subarray(A):
-    min_sum = 0
     max_sum = 0
-    for running_sum in itertools.accumulate(A):
-        min_sum = min(min_sum, running_sum)
-        max_sum = max(max_sum, running_sum - min_sum)
+    max_till = 0
+    for a in (A):
+        max_till = max(max_till + a, a)
+        max_sum = max(max_sum, max_till)
     return max_sum
+
+# def find_maximum_subarray(A):
+#     min_sum = 0
+#     max_sum = 0
+#     for running_sum in itertools.accumulate(A):
+#         min_sum = min(min_sum, running_sum)
+#         max_sum = max(max_sum, running_sum - min_sum)
+#     return max_sum
 
 
 if __name__ == '__main__':
