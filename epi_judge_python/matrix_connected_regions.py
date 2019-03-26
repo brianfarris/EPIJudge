@@ -4,6 +4,28 @@ from collections import deque
 
 def flip_color(x, y, image):
     color = image[x][y]
+    Nx = len(image)
+    Ny = len(image[0])
+
+    def rec(x, y):
+        if ((x < 0) or
+                (y < 0) or
+                (x > Nx-1) or
+                (y > Ny-1) or
+                image[x][y] != color):
+            pass
+        else:
+            image[x][y] = 1 - color
+            rec(x+1, y)
+            rec(x-1, y)
+            rec(x, y+1)
+            rec(x, y-1)
+
+    rec(x, y)
+
+"""
+def flip_color(x, y, image):
+    color = image[x][y]
     q = deque()
     q.append((x, y))
     image[x][y] = 1 - image[x][y]
@@ -19,6 +41,7 @@ def flip_color(x, y, image):
                 image[coord[0]][coord[1]] = 1 - image[coord[0]][coord[1]]
                 q.append(coord)
 
+"""
 
 """
 def flip_color(x, y, image):

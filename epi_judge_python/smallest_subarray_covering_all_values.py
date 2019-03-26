@@ -8,6 +8,41 @@ Subarray = collections.namedtuple('Subarray', ('start', 'end'))
 
 
 def find_smallest_sequentially_covering_subset(paragraph, keywords):
+    i = j = 0
+    shortest_ij = (0, 0)
+    shortest = float("inf")
+    missing = {keyword: 1 for keyword in keywords}
+    keywords_cache = {keyword: 0 for keyword in keywords}
+    while missing and j < len(paragraph):
+        if paragraph[j] in keywords_cache:
+            keywords_cache[paragraph[j]] += 1
+            if paragraph[j] in missing:
+                del missing[paragraph[j]]
+        j += 1
+        while not missing and i < j:
+            if paragraph[i] in keywords_cache:
+                keywords_cache[paragraph[i]] -= 1
+                if keywords_cache[paragraph[i]] == 0:
+                    missing[paragraph[i]] = 1
+            i += 1
+            print("i: ", i, "j: ", j)
+        if (j - i) < shortest:
+            shortest = j - i
+            shortest_ij = (i, j)
+
+    return shortest_ij
+
+
+
+
+
+
+
+
+
+
+"""
+def find_smallest_sequentially_covering_subset(paragraph, keywords):
     n_kw = len(keywords)
     kw_idx = {k: i for i, k in enumerate(keywords)}
     latest = [-1] * n_kw
@@ -31,7 +66,7 @@ def find_smallest_sequentially_covering_subset(paragraph, keywords):
                 shortest_dist = shortest_subarray_length[-1]
                 result = Subarray(i - shortest_dist + 1, i)
     return result
-
+"""
 
 """
 def find_smallest_sequentially_covering_subset(paragraph, keywords):

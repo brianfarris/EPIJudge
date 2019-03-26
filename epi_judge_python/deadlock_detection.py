@@ -9,6 +9,27 @@ class GraphVertex:
         self.edges = []
         self.color = 'white'
 
+
+def is_deadlocked(graph):
+    def dfs(vertex):
+        for edge in vertex.edges:
+            if edge.color in ("grey", "black"):
+                return True
+            else:
+                edge.color = "grey"
+                dfs(edge)
+        vertex.color = "black"
+        return False
+
+    for vertex in graph:
+        if vertex.color != "black":
+            vertex.color = "grey"
+            if dfs(vertex):
+                return True
+    return False
+
+
+"""
 def is_deadlocked(graph):
     def rec(vert):
         if vert.color == "grey":
@@ -19,8 +40,7 @@ def is_deadlocked(graph):
         return any_dead
 
     return any(rec(vert) for vert in graph if vert.color == "white")
-
-
+"""
 """
 def is_deadlocked(graph):
     # TODO - you fill in here.

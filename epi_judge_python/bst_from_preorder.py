@@ -3,6 +3,19 @@ from bst_node import BstNode
 
 
 def rebuild_bst_from_preorder(preorder_sequence):
+    if len(preorder_sequence) == 0:
+        return None
+    root = BstNode(preorder_sequence[0])
+    i = 1
+    left = [x for x in preorder_sequence[1:] if x < preorder_sequence[0]]
+    right = [x for x in preorder_sequence[1:] if x > preorder_sequence[0]]
+    root.left = rebuild_bst_from_preorder(left)
+    root.right = rebuild_bst_from_preorder(right)
+    return root
+
+
+"""
+def rebuild_bst_from_preorder(preorder_sequence):
     if not preorder_sequence:
         return None
 
@@ -14,6 +27,7 @@ def rebuild_bst_from_preorder(preorder_sequence):
     return BstNode(preorder_sequence[0],
             rebuild_bst_from_preorder(left),
                    rebuild_bst_from_preorder(right))
+"""
 
 
 if __name__ == '__main__':

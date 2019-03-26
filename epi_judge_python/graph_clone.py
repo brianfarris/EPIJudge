@@ -10,6 +10,21 @@ class GraphVertex:
         self.edges = []
 
 
+cache = {}
+
+
+def clone_graph(graph):
+    if graph in cache:
+        return cache[graph]
+    else:
+        g_copy = GraphVertex(graph.label)
+        cache[graph] = g_copy
+        for edge in graph.edges:
+            cache[graph].edges.append(clone_graph(edge))
+        return cache[graph]
+
+
+"""
 def clone_graph(graph):
     vertex_map = {graph: GraphVertex(graph.label)}
     q = collections.deque()
@@ -22,6 +37,8 @@ def clone_graph(graph):
                 q.append(v)
             vertex_map[curr].edges.append(vertex_map[v])
     return vertex_map[graph]
+"""
+
 
 """
 cache = {}
@@ -35,7 +52,6 @@ def clone_graph(graph):
         cache[graph].edges.append(clone_graph(v))
     return g
 """
-
 
 def copy_labels(edges):
     return [e.label for e in edges]
