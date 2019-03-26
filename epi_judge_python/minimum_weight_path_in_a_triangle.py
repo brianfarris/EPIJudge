@@ -2,6 +2,15 @@ from test_framework import generic_test
 
 
 def minimum_path_weight(triangle):
+    min_weights = [0]
+    for row in triangle:
+        min_weights = [float("inf")] + min_weights + [float("inf")]
+        min_weights = [entry + min(min_weights[j], min_weights[j+1])
+                for j, entry in enumerate(row)]
+    return min(min_weights)
+
+"""
+def minimum_path_weight(triangle):
     # TODO - you fill in here.
     cache = {}
     def rec_top_down(i,j):
@@ -20,7 +29,7 @@ def minimum_path_weight(triangle):
 
     # return rec_top_down(0, 0)
 
-
+"""
 
 
 if __name__ == '__main__':

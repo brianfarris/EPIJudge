@@ -11,16 +11,15 @@ class GraphVertex:
 
 def is_deadlocked(graph):
     def rec(vert):
-        if vert.color == 'gray':
+        if vert.color == "grey":
             return True
+        vert.color = "grey"
+        any_dead = any(rec(dep) for dep in vert.edges if dep.color != "black")
+        vert.color = "black"
+        return any_dead
 
-        vert.color = 'gray'
-        if any([v.color != 'black' and rec(v) for v in vert.edges]):
-            return True
-        vert.color = 'black'
-        return False
+    return any(rec(vert) for vert in graph if vert.color == "white")
 
-    return any([vert.color == 'white' and rec(vert) for vert in graph])
 
 """
 def is_deadlocked(graph):

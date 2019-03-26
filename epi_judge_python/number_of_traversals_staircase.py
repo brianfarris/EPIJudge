@@ -2,6 +2,19 @@ from test_framework import generic_test
 
 
 def number_of_ways_to_top(top, maximum_step):
+    cache = {}
+    def rec(top):
+        if top <= 1:
+            return 1
+        if top not in cache:
+            this_max_step = min(top, maximum_step)
+            cache[top] = sum(rec(top - i) for i in range(1, this_max_step + 1))
+        return cache[top]
+    return rec(top)
+
+
+"""
+def number_of_ways_to_top(top, maximum_step):
     # TODO - you fill in here.
     cache = {}
     def rec(top):
@@ -16,7 +29,7 @@ def number_of_ways_to_top(top, maximum_step):
             cache[top] = answer
         return cache[top]
     return rec(top)
-
+"""
 
 if __name__ == '__main__':
     exit(

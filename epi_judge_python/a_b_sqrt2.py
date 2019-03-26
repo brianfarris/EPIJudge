@@ -18,6 +18,18 @@ class AB:
 
 def generate_first_k_a_b_sqrt2(k):
     tree = bintrees.RBTree()
+    tree.insert(AB(0,0), None)
+    result = []
+    for i in range(k):
+        cand = tree.pop_min()[0]
+        result.append(cand.val)
+        tree.insert(AB(cand.a + 1, cand.b), None)
+        tree.insert(AB(cand.a, cand.b + 1), None)
+    return result
+
+"""
+def generate_first_k_a_b_sqrt2(k):
+    tree = bintrees.RBTree()
     tree.insert(AB(0, 0), None)
     result = []
     while len(result) < k:
@@ -27,7 +39,7 @@ def generate_first_k_a_b_sqrt2(k):
         tree.insert(AB(cand.a, cand.b + 1), None)
 
     return result
-
+"""
 
 if __name__ == '__main__':
     exit(
