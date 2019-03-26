@@ -3,6 +3,43 @@ from collections import deque
 
 
 def fill_surrounded_regions(board):
+    Nx = len(board)
+    Ny = len(board[0])
+
+    def bfs(start):
+        q = [start]
+        while q:
+            curr_x, curr_y = q.pop(0)
+            if ((curr_x < 0) or
+                    (curr_y < 0) or
+                    (curr_x > Nx-1) or
+                    (curr_y > Ny-1) or
+                    (board[curr_x][curr_y] in ("B", "temp"))):
+                pass
+            else:
+                board[curr_x][curr_y] = "temp"
+                q.append((curr_x + 1, curr_y))
+                q.append((curr_x - 1, curr_y))
+                q.append((curr_x, curr_y + 1))
+                q.append((curr_x, curr_y - 1))
+
+    for i in range(Nx):
+        bfs((i, 0))
+        bfs((i, Ny-1))
+    for j in range(Ny):
+        bfs((0, j))
+        bfs((Nx-1, j))
+
+    for i in range(Nx):
+        for j in range(Ny):
+            if board[i][j] == "temp":
+                board[i][j] = "W"
+            else:
+                board[i][j] = "B"
+
+
+"""
+def fill_surrounded_regions(board):
     n = len(board)
     m = len(board[0])
     q = deque([(i, 0) for i in range(n)] +
@@ -19,7 +56,7 @@ def fill_surrounded_regions(board):
             q.append((x, y - 1))
 
     board[:] = [['B' if c != "T" else 'W' for c in row] for row in board]
-
+"""
 
 """
 def fill_surrounded_regions(board):

@@ -12,6 +12,30 @@ Coordinate = collections.namedtuple('Coordinate', ('x', 'y'))
 
 
 def search_maze(maze, s, e):
+
+    q = [[s]]
+    while q:
+        path = q.pop(0)
+        curr = path[-1]
+        if ((curr.x < 0) or
+                (curr.y < 0) or
+                (curr.x >= len(maze)) or
+                (curr.y >= len(maze[0])) or
+                (maze[curr.x][curr.y] == BLACK)):
+            pass
+        elif (curr.x == e.x and curr.y == e.y):
+            return path
+        else:
+            maze[curr.x][curr.y] = BLACK
+            q.append(path + [Coordinate(curr.x + 1, curr.y)])
+            q.append(path + [Coordinate(curr.x - 1, curr.y)])
+            q.append(path + [Coordinate(curr.x, curr.y + 1)])
+            q.append(path + [Coordinate(curr.x, curr.y - 1)])
+    return []
+
+
+"""
+def search_maze(maze, s, e):
     Nx = len(maze)
     Ny = len(maze[0])
 
@@ -26,7 +50,7 @@ def search_maze(maze, s, e):
             curr.y > len(maze[0])-1
             or maze[curr.x][curr.y] == BLACK
             ):
-            pass 
+            pass
         elif curr == e:
             return path
         else:
@@ -48,7 +72,7 @@ def search_maze(maze, s, e):
             q.append(downpath)
 
     return []
-
+"""
 
 """
 def search_maze(maze, s, e):
@@ -82,6 +106,7 @@ def search_maze(maze, s, e):
         return []
     return path
 """
+
 
 def path_element_is_feasible(maze, prev, cur):
     if not ((0 <= cur.x < len(maze)) and

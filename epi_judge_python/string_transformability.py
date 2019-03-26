@@ -4,6 +4,27 @@ import string
 
 
 def transform_string(D, s, t):
+    def replace(s, i, letter):
+        return s[:i] + letter + s[i+1:]
+
+    D.remove(s)
+
+    q = [(s, 0)]
+    while q:
+        curr, dist = q.pop(0)
+        if curr == t:
+            return dist
+        for letter in string.ascii_lowercase:
+            for i in range(len(s)):
+                cand = replace(curr, i, letter)
+                if cand in D:
+                    D.remove(cand)
+                    q.append((cand, dist + 1))
+    return -1
+
+
+"""
+def transform_string(D, s, t):
     q = deque()
     q.append((s, 0))
     D.remove(s)
@@ -19,6 +40,7 @@ def transform_string(D, s, t):
                     q.append((candidate, vert_dist + 1))
                     D.remove(candidate)
     return -1
+"""
 
 
 """
