@@ -6,6 +6,16 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def reconstruct_preorder(preorder):
+    key = preorder.pop(0)
+    if key is None:
+        return None
+    left_subtree = reconstruct_preorder(preorder)
+    right_subtree = reconstruct_preorder(preorder)
+    return BinaryTreeNode(key, left_subtree, right_subtree)
+
+
+"""
+def reconstruct_preorder(preorder):
     # TODO - you fill in here.
     sub_key = preorder.pop(0)
     if sub_key is None:
@@ -13,7 +23,7 @@ def reconstruct_preorder(preorder):
     left_subtree = reconstruct_preorder(preorder)
     right_subtree = reconstruct_preorder(preorder)
     return BinaryTreeNode(sub_key, left_subtree, right_subtree)
-
+"""
 
 @enable_executor_hook
 def reconstruct_preorder_wrapper(executor, data):

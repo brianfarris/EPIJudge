@@ -16,7 +16,7 @@ def construct_right_sibling(tree):
     def set_level(node):
         while node and node.left:
             node.left.next = node.right
-            node.right.next = node.next and node.next.left
+            node.right.next = node.next.left if node.next else None
             node = node.next
 
     while tree and tree.left:

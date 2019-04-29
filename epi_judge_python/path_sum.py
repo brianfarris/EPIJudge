@@ -2,6 +2,16 @@ from test_framework import generic_test
 
 
 def has_path_sum(tree, remaining_weight):
+    if not tree:
+        return False
+    elif not tree.left and not tree.right:
+        return tree.data == remaining_weight
+    else:
+        return (has_path_sum(tree.left, remaining_weight - tree.data)  or
+                has_path_sum(tree.right, remaining_weight - tree.data))
+
+"""
+def has_path_sum(tree, remaining_weight):
     # TODO - you fill in here.
     if not tree:
         return False
@@ -9,7 +19,7 @@ def has_path_sum(tree, remaining_weight):
         return remaining_weight == tree.data
 
     return has_path_sum(tree.left, remaining_weight - tree.data) or has_path_sum(tree.right, remaining_weight - tree.data)
-
+"""
 
 if __name__ == '__main__':
     exit(

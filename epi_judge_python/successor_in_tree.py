@@ -6,6 +6,19 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def find_successor(node):
+    if node.right:
+        node = node.right
+        while node.left:
+            node = node.left
+    else:
+        while node.parent and node.parent.right is node:
+            node = node.parent
+
+        node = node.parent
+    return node
+
+"""
+def find_successor(node):
     # TODO - you fill in here.
     if node.right:
         node = node.right
@@ -16,7 +29,7 @@ def find_successor(node):
     while node.parent and node.parent.right is node:
         node = node.parent
     return node.parent
-
+"""
 
 @enable_executor_hook
 def find_successor_wrapper(executor, tree, node_idx):

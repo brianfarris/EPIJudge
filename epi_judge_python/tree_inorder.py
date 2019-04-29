@@ -2,6 +2,22 @@ from test_framework import generic_test
 
 
 def inorder_traversal(tree):
+    stack = []
+    result = []
+    while tree or stack:
+        if tree:
+            stack.append(tree)
+            tree = tree.left
+        else:
+            tree = stack.pop()
+            result.append(tree.data)
+            tree = tree.right
+
+    return result
+
+
+"""
+def inorder_traversal(tree):
     # TODO - you fill in here.
     stack = []
     result = []
@@ -15,7 +31,7 @@ def inorder_traversal(tree):
             tree = tree.right
 
     return result
-
+"""
 
 if __name__ == '__main__':
     exit(
